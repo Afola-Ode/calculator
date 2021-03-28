@@ -4,35 +4,13 @@ const calculator = {
     waitingForSecondValue: false,
     operator: null
 };
-  function display() {
-    const display = document.querySelector('.display_value');
-    display.value = calculator.displayValue;
-  }
-  display();
-  const keys = document.querySelectorAll("button");
-  keys.addEventListener("click", (e) =>{
-      const {target} = e;
 
-      if (!target.contains('digit')) {
-        return;
-      }      
-      if (target.classList.contains('operator')) {
-        handleOperator(target.value);
-        return;
-      }
-      if (target.classList.contains('decimal')) {
-        insertDecimal(target.value);
-        display();
-        return;
-      }
-      if (target.classList.contains('cancel')) {
-        reset();
-        display();
-        return;
-      }
-      inputValue(target.value);
-      display();    
-  })
+  function display() {
+    const displayValue = document.querySelector('.display_value');
+    displayValue.value = calculator.display_value;
+  }
+
+  display();
 
   function inputValue(number) {
     const { display_value, waitingForSecondValue } = calculator;
@@ -45,6 +23,39 @@ const calculator = {
     }
     console.log(calculator);
   }
+
+  function reset() {
+    calculator.display_value = '0';
+    calculator.firstValue = null;
+    calculator.waitingForSecondValue = false;
+    calculator.operator = null;
+    console.log(calculator);
+  }
+
+  const keys = document.querySelector(".row");
+  keys.addEventListener("click", (e) =>{
+      const {target} = e;
+
+      if (!target.matches('button')) {
+        return;
+      }      
+      if (target.classList.contains('operator')) {
+        handleOperator(target.value);
+        return;
+      }
+      if (target.classList.contains('decimal')) {
+        insertDecimal(target.value);
+        display();
+        return;
+      }
+      if (target.classList.contains('clear')) {
+        reset();
+        display();
+        return;
+      }
+      inputValue(target.value);
+      display();    
+  })
   
   function insertDecimal(decimal){
       if(calculator.waitingForSecondOperand === true){
@@ -91,54 +102,6 @@ const calculator = {
     }
   
     return secondValue;
-  }    
-    if (firstOperand == null && !isNaN(inputValue)) {
-      calculator.firstOperand = inputValue;
-    } else if (operator) {
-      const result = calculate(firstOperand, inputValue, operator);
-      calculator.displayValue = String(result);
-      calculator.firstOperand = result;
-    }
-  function reset() {
-    calculator.display_value = '0';
-    calculator.firstValue = null;
-    calculator.waitingForSecondValue = false;
-    calculator.operator = null;
-    console.log(calculator);
   }
-
-//   keys.addEventListener('click', event => {
-//     const { target } = event;
-//     const { value } = target;
-//     if (!target.matches('button')) {
-//       return;
-//     }
   
-//     switch (value) {
-//       case '+':
-//       case '-':
-//       case '*':
-//       case '/':
-//       case '=':
-//         handleOperator(value);
-//         break;
-//       case '.':
-//         inputDecimal(value);
-//         break;
-//       case 'all-clear':
-//         resetCalculator();
-//         break;
-//       default:
-        // check if the key is an integer
-//         if (Number.isInteger(parseFloat(value))) {
-//           inputDigit(value);
-//         }
-//     }
-  
-//     updateDisplay();
-//   });
-//   calculator.displayValue = String(result);
-//   calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
-//   0.30000000000000004.toFixed(7) // 0.3000000
-//   parseFloat(0.30000000000000004.toFixed(7)) // 0.3
                 
