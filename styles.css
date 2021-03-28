@@ -19,16 +19,18 @@ body {
   font-size: 2.5rem;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 2rem;
+  justify-content: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 .calc-display input {
-  background-color: #193a32;
+  background-color: #23594b;
   color: white;
   font-size: 2.5rem;
   border: 0;
   width: 40vh;
   align-items: center;
+  text-align: right;
 }
 .keys-container {
   background-color: #14332c;
